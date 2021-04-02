@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Scroll Animate Example 1</title>
+    <script language="JavaScript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="./dist/scrollAnimate.min.js"></script>
+    <script src="/scroll-animate-branding.js"></script>
+    <style>
+      .section {
+        background-color: rgb(181, 181, 255);
+      }
+      .sticky-container {
+        margin-top: 250px;
+        padding-top: 20px;
+        height: 9580px;
+        background-color: rgb(85, 85, 255);
+      }
+      .sticky {
+        position: sticky;
+        top: 50px;
+        text-align: center;
+        background-color: white;
+      }
+      .image-container {
+        width: 900px;
+        height: 720px; /*Static height so the page does not change on animation load*/
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section" data-scroll-container="null">
+      <p>Page Container of a ugly example</p>
+      <div class="sticky-container">
+        <p>Sticky container</p>
+        <div class="sticky">
+          <p>Sticky</p>
+          <div class="image-container" id="image-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!--<script>
+      var $aContainer = document.getElementById("animation-container");
+      var aContainerRect = $aContainer.getBoundingClientRect();
+      var start = aContainerRect.top;
+      var length = aContainerRect.height + 100; //Height of the container plus a offset for better presentation
+      scrollAnimate({
+        frames: {
+          path: "frames/",
+          prefix: "Bolk_Branding",
+          extension: "png",
+          amount: 40,
+          pad: "0000"
+        },
+        parent: $aContainer,
+        scroll: {
+          start: start,
+          length: length
+        }
+      });
+    </script>-->
+  </body>
+</html>
