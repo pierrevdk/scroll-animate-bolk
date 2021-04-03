@@ -1,4 +1,3 @@
-// Script based on https://levelup.gitconnected.com/how-to-create-frame-by-frame-moving-image-on-scroll-effect-30ce577c63c2
 // 1 to 151 => 00 - Sphere
 // 152 to 212 => 01 - Sphere to branding
 // 213 to 413 => 02 - Branding
@@ -8,17 +7,54 @@
 // 758 to 908 => 06 - Contents
 // 909 to 958 => 07 - Contents to portfolio
 
-// Global variable to control the scrolling behavior
-const step = 10; // For each 10px, change an image
-function trackScrollPosition() {
-  const y = window.scrollY;
-  const label = Math.min(Math.floor(y/10) + 1, 958); //Animate 200 images and change every 10 pixels
-  const imageToUse = [label];
-  // Change the background image
-  $('.image-container').css('background-image', `url('/images/sphere-bolk-${imageToUse}.png')`); // TODO: Add url before ${}
-}
-$(document).ready(()=>{
-  $(window).scroll(()=>{
-    trackScrollPosition();
-  })
-})
+const containerID = 'sticky';
+const animationID = 'image-container';
+const frames = 958;
+
+const { documentElement: page } = document;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById(containerID);
+  const animation = document.getElementById(animationID);
+  const animCtx = animation.getContext('2d');
+
+  let top = null;
+  let isAnimated = false;
+
+  function animate () {
+    const {
+      top: currentTop,
+      height: currentHeight,
+      offsetTop
+    } = container.getBoundingClientRect();
+
+    isAnimated = (top == currentTop);
+    top = currentTop;
+
+    if (!isAnimated) { return }
+
+    const timeline = page.getBoundingClientRect().height - currentHeight*2;
+    const steps = timeline / frames;
+    const distance = container.offsetTop;
+
+    const index = Math.min(Math.floor(distance / steps), frames);
+    draw(index);
+
+  }
+
+  function draw (index) {
+    const loader = new Image();
+    loader.addEventListener('load', () => {
+      animCtx.clearRect(0, 0, animation.width, animation.height);
+      animCtx.drawImage(loader, 0, 0);
+    });
+    loader.src = `./images/sphere-bolk-${index}.png`;
+  }
+
+  draw(1);
+
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(animate);
+  });
+
+});
