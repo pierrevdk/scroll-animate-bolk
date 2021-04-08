@@ -1,4 +1,3 @@
-// Script based on https://levelup.gitconnected.com/how-to-create-frame-by-frame-moving-image-on-scroll-effect-30ce577c63c2
 // 1 to 151 => 00 - Sphere
 // 152 to 212 => 01 - Sphere to branding
 // 213 to 413 => 02 - Branding
@@ -8,6 +7,7 @@
 // 758 to 908 => 06 - Contents
 // 909 to 958 => 07 - Contents to portfolio
 
+<<<<<<< HEAD
 // Global variable to control the scrolling behavior
 const step = 10; // For each 10px, change an image
 const section = document.getElementById("sticky-container");
@@ -28,3 +28,56 @@ $(document).ready(()=>{
     trackScrollPosition();
   })
 })
+=======
+const containerID = 'sticky';
+const animationID = 'image-container';
+const frames = 958;
+
+const { documentElement: page } = document;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById(containerID);
+  const animation = document.getElementById(animationID);
+  const animCtx = animation.getContext('2d');
+
+  let top = null;
+  let isAnimated = false;
+
+  function animate () {
+    const {
+      top: currentTop,
+      height: currentHeight,
+      offsetTop
+    } = container.getBoundingClientRect();
+
+    isAnimated = (top == currentTop);
+    top = currentTop;
+
+    if (!isAnimated) { return }
+
+    const timeline = page.getBoundingClientRect().height - currentHeight*2;
+    const steps = timeline / frames;
+    const distance = container.offsetTop;
+
+    const index = Math.min(Math.floor(distance / steps), frames);
+    draw(index);
+
+  }
+
+  function draw (index) {
+    const loader = new Image();
+    loader.addEventListener('load', () => {
+      animCtx.clearRect(0, 0, animation.width, animation.height);
+      animCtx.drawImage(loader, 0, 0);
+    });
+    loader.src = `./images/sphere-bolk-${index}.png`;
+  }
+
+  draw(1);
+
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(animate);
+  });
+
+});
+>>>>>>> 6e3867142062bd15f250c1635cd4ef7806acdacd
