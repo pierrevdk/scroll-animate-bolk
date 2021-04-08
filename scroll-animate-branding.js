@@ -10,13 +10,19 @@
 
 // Global variable to control the scrolling behavior
 const step = 10; // For each 10px, change an image
+const section = document.getElementById("sticky-container");
+// const toto = window.scrollY;
+// console.log(toto.toString()); // => returns 0, why?
+
 function trackScrollPosition() {
-  const y = window.scrollY;
+  const y = window.scrollY; // would like to put section.scrollTop here but does not work
   const label = Math.min(Math.floor(y/10) + 1, 958); //Animate 200 images and change every 10 pixels
   const imageToUse = [label];
   // Change the background image
-  $('.image-container').css('background-image', `url('/images/sphere-bolk-${imageToUse}.png')`); // TODO: Add url before ${}
+  $('.image-container').css('background-image', `url('//res.cloudinary.com/bolk/image/upload/v1617375724/bolk-studio-website-js/scroll-animate/images/sphere-bolk-${imageToUse}.png')`); // TODO: Add url before ${}
+  console.log(y.toString());
 }
+
 $(document).ready(()=>{
   $(window).scroll(()=>{
     trackScrollPosition();
