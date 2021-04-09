@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const steps = timeline / frames;
     const distance = container.offsetTop;
 
-    const index = Math.min(Math.floor(distance / steps), frames);
+    const index = Math.max(1, Math.min(Math.floor(distance / steps), frames));
     draw(index);
 
   }
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       animCtx.clearRect(0, 0, animation.width, animation.height);
       animCtx.drawImage(loader, 0, 0);
     });
-    loader.src = `./images/sphere-bolk-${index}.png`;
+    loader.src = `//res.cloudinary.com/bolk/image/upload/v1617906269/bolk-studio-website-js/scroll-animate/images/sphere-bolk-${index}.png`;
   }
 
   draw(1);
